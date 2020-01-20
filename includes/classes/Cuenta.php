@@ -24,10 +24,18 @@ class Cuenta
         }
     }
 
+    public function darerror($error)
+    {
+        if (!in_array($error, $this->errorArray)) {
+            $error = "";
+        }
+        return "<span class='errorMessage'>$error</span>";
+    }
+
     private function validarUN($vun)
     {
         if (strlen($vun) > 25 || strlen($vun) < 5) {
-            array_push($this->errorArray, "El nombre de usuario debe tener entre 5 y 25 caracteres");
+            array_push($this->errorArray, Constantes::$unlen);
             return;
         }
         //TODO:verificar si el usuario existe
@@ -35,7 +43,7 @@ class Cuenta
     private function validarname($vn)
     {
         if (strlen($vn) > 25 || strlen($vn) < 2) {
-            array_push($this->errorArray, "El nombre de  debe tener entre 2 y 25 caracteres");
+            array_push($this->errorArray, Constantes::$nalen);
 
             return;
         }
@@ -43,11 +51,11 @@ class Cuenta
     private function validarmail($vm, $vm2)
     {
         if ($vm != $vm2) {
-            array_push($this->errorArray, "La direccion de correo no coincide");
+            array_push($this->errorArray, Constantes::$emdm);
             return;
         }
         if (!filter_var($vm, FILTER_VALIDATE_EMAIL)) {
-            array_push($this->errorArray, "La direccion de correo no es valida");
+            array_push($this->errorArray, Constantes::$emnv);
             return;
         }
 
@@ -56,23 +64,23 @@ class Cuenta
     private function validarapellido($va)
     {
         if (strlen($va) > 25 || strlen($va) < 2) {
-            array_push($this->errorArray, "El apellido debe tener entre 2");
+            array_push($this->errorArray, Constantes::$apelen);
             return;
         }
     }
     private function validarpass($vp, $vp2)
     {
         if ($vp != $vp2) {
-            array_push($this->errorArray, "La contraseña no coincide");
+            array_push($this->errorArray, Constantes::$passdm);
             return;
         }
         if (preg_match('/[^A-Za-z0-9]/', $vp)) {
-            array_push($this->errorArray, "La contraseña solo puede contener numeros y letras");
+            array_push($this->errorArray, Constantes::$passcon);
             return;
         }
 
         if (strlen($vp) > 30 || strlen($vp) < 5) {
-            array_push($this->errorArray, "La contraseña debe tener minimo 5 caracteres y maximo 30");
+            array_push($this->errorArray, Constantes::$passlen);
             return;
         }
     }

@@ -26,19 +26,19 @@ function trformstr($inputs)
 
 
 if (isset($_POST['registerButton'])) {
-    $username = trformdata($_POST('registerUsername'));
+    $username = trformdata($_POST['registerUsername']);
 
-    $name = trformstr($_POST('registername'));
+    $name = trformstr($_POST['registername']);
 
-    $apellido = trformstr($_POST('registerApellido'));
+    $apellido = trformstr($_POST['registerApellido']);
 
-    $email = trformstr($_POST('registerMail'));
+    $email = trformstr($_POST['registerMail']);
 
-    $email2 = trformstr($_POST('registerMail2'));
+    $email2 = trformstr($_POST['registerMail2']);
 
-    $pass = trformpass($_POST('registerPassword'));
+    $pass = trformpass($_POST['registerPassword']);
 
-    $pass2 = trformpass($_POST('registerPassword2'));
+    $pass2 = trformpass($_POST['registerPassword2']);
 
     $exito = $cuenta->register($username, $name, $apellido, $pass, $pass2, $email, $email2);
 
