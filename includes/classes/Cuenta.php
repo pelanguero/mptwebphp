@@ -2,9 +2,10 @@
 class Cuenta
 {
     private $errorArray;
-
-    public function __construct()
+    private $scon;
+    public function __construct($scon)
     {
+        $this->scon = $scon;
         $this->errorArray = array();
     }
 
@@ -18,10 +19,21 @@ class Cuenta
 
         if (empty($this->errorArray)) {
             //insertar en la base de datos
-            return true;
+            return $this->insertUserDetails($un, $fn, $ln, $em, $pw);
         } else {
             return false;
         }
+    }
+
+    private function insertUserDetails($un, $fn, $ln, $em, $pw)
+    {
+        $encryppw = md5($pw);
+        $profilepic = "assets/images/profile-pics/head_emerald.png";
+        $date = date("Y-m-d");
+        echo "INSERT INTO usuarios VALUES ('0','$un','$fn','$ln','$em','$encryppw','$date','$profilepic')";
+        $result = mysqli_query($this->scon, "INSERT INTO usuarios VALUES ('','$un','$fn','$ln','$em','$encryppw','$date','$profilepic')");
+        echo $result;
+        return $result;
     }
 
     public function darerror($error)
