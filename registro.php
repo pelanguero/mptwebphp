@@ -28,6 +28,7 @@ function darInput($nname)
         <form id="loginForm" action="registro.php" method="post">
             <h2>Login to your account</h2>
             <p>
+            <?php echo $cuenta->darerror(Constantes::$logerror); ?>
                 <label for="loginUsername">Usuario</label>
                 <input id="loginUsername" name="loginUsername" type="text" placeholder="ejemplo pelanguero" required>
             </p>
@@ -43,6 +44,7 @@ function darInput($nname)
             <h2>Crea tu cuenta gratis</h2>
             <p>
                 <?php echo $cuenta->darerror(Constantes::$unlen); ?>
+                <?php echo $cuenta->darerror(Constantes::$unext); ?>
                 <label for="registerUsername">Usuario</label>
                 <input id="registerUsername" name="registerUsername" type="text" placeholder="ejemplo pelanguero" value="<?php darInput("registerUsername") ?>" required>
             </p>
@@ -61,6 +63,7 @@ function darInput($nname)
 
             <p>
                 <?php echo $cuenta->darerror(Constantes::$emnv); ?>
+                <?php echo $cuenta->darerror(Constantes::$mailext); ?>
                 <label for="registerMail">e-mail</label>
                 <input id="registerMail" name="registerMail" type="email" placeholder="ejemplo pelanguero@pelanguero.com" value="<?php darInput("registerMail") ?>" required>
             </p>
@@ -85,7 +88,7 @@ function darInput($nname)
                 <label for="registerPassword2">re Contraseña</label>
                 <input id="registerPassword2" name="registerPassword2" type="password" required>
             </p>
-            <button type="submit" name="registerButton">sign up</button>
+            <button type="submit" name="registerButton">Registrate</button>
         </form>
     </div>
 </body>

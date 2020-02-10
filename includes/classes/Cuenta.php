@@ -1,6 +1,7 @@
 <?php
 class Cuenta
 {
+    
     private $errorArray;
     private $scon;
     public function __construct($scon)
@@ -24,14 +25,25 @@ class Cuenta
             return false;
         }
     }
+    public function login ($un,$pw){
+        $pw=md5($pw);
+        $query=mysqli_query($this->scon,"SELECT * FROM usuarios WHERE username='$un' AND pass='$pw'");
+        if(mysqli_num_rows($query)==1){
+           return true;
+        }
+        else {
+            array_push($this->errorArray,Constantes::$logerror);
+            return false;
+        }
+
+    }
 
     private function insertUserDetails($un, $fn, $ln, $em, $pw)
     {
         $encryppw = md5($pw);
         $profilepic = "assets/images/profile-pics/head_emerald.png";
         $date = date("Y-m-d");
-        echo "INSERT INTO usuarios VALUES ('0','$un','$fn','$ln','$em','$encryppw','$date','$profilepic')";
-        $result = mysqli_query($this->scon, "INSERT INTO usuarios VALUES ('','$un','$fn','$ln','$em','$encryppw','$date','$profilepic')");
+        $result = mysqli_query($this->scon, "INSERT INTO usuarios VALUES ('0','$un','$fn','$ln','$em','$encryppw','$date','$profilepic')");
         echo $result;
         return $result;
     }
@@ -44,13 +56,18 @@ class Cuenta
         return "<span class='errorMessage'>$error</span>";
     }
 
-    private function validarUN($vun)
+    private function validarUN($un)
     {
-        if (strlen($vun) > 25 || strlen($vun) < 5) {
+        if (strlen($un) > 25 || strlen($un) < 5) {
             array_push($this->errorArray, Constantes::$unlen);
             return;
         }
-        //TODO:verificar si el usuario existe
+        $existeUN=mysqli_query($this->scon,"SELECT username FROM usuarios WHERE username='$un'");
+        if(mysqli_num_rows($existeUN)!=0)
+        {
+           array_push($this->errorArray,Constantes::$unext);
+        }
+        
     }
     private function validarname($vn)
     {
@@ -70,8 +87,12 @@ class Cuenta
             array_push($this->errorArray, Constantes::$emnv);
             return;
         }
-
-        //TODO VERIFICAR SI el email ya esta en uso
+        $existemail=mysqli_query($this->scon,"SELECT email FROM usuarios WHERE email='$vm'");
+        if(mysqli_num_rows($existemail)!=0)
+        {
+           array_push($this->errorArray,Constantes::$mailext);
+        }
+        
     }
     private function validarapellido($va)
     {

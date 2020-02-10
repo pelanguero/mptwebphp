@@ -9,5 +9,8 @@ class Constantes
     public static $emdm = "La direccion de correo no coincide";
     public static $nalen = "El nombre debe tener entre 2 y 25 caracteres";
     public static $unlen = "El nombre de usuario debe tener entre 5 y 25 caracteres";
-    public static $unext = "";
+    public static $unext = "El nombre de usuario ya existe"; 
+    public static $mailext = "El email ya existe";
+    public static $logerror="Credenciales de inicio de sesion incorrectas";
+
 }

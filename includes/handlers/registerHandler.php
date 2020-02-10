@@ -43,6 +43,7 @@ if (isset($_POST['registerButton'])) {
     $exito = $cuenta->register($username, $name, $apellido, $pass, $pass2, $email, $email2);
 
     if ($exito) {
+        $_SESSION['userLoggedIn']=$username;
         header("Location: index.php");
     }
 }
